@@ -7,6 +7,8 @@
 //
 
 #include <iostream>
+#include "Student.h"
+#include "SortTestHelper.h"
 
 using namespace std;
 
@@ -47,6 +49,21 @@ int main() {
         cout << c[i] << " ";
     }
     cout << endl;
+    
+    Student d[4]={{"D",90},{"C",100},{"B",95},{"A",95}};
+    selectionSort(d, 4);
+    for (int i=0; i<4; i++) {
+        cout<<d[i];
+    }
+    cout<<endl;
+    
+    int n=10000;
+    int *arr=SortTestHelper::generateRandomArray(n, 0, n);
+    selectionSort(arr, n);
+    SortTestHelper::printArray(arr, n);
+    
+    //因为是用了new生成了数组，所以应该使用delete[]释放内存
+    delete [] arr;
     
     return 0;
 }

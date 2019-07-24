@@ -20,11 +20,12 @@ struct Student {
     
     //小于号的重载
     bool operator<(const Student &otherStudent){
-        return score<otherStudent.score;
+        return score!=otherStudent.score ? score<otherStudent.score : name<otherStudent.name;
     }
     
     friend ostream& operator<<(ostream &os, const Student &student){
-        os<<"St"
+        os<<"Student: "<<student.name<<" "<<student.score<<endl;
+        return os;
     }
 };
 
