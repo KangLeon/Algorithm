@@ -62,7 +62,12 @@ namespace SortTestHelper {
         return;
     }
     
-    
+    int *copyIntArray(int a[], int n){
+        int *arr=new int[n];
+        //头指针、尾指针、拷贝到目的地址的头指针
+        copy(a, a+n, arr);
+        return arr;
+    }
 }
 
 #endif /* SortTestHelper_h */
