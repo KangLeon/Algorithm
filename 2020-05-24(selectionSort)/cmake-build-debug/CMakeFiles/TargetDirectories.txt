@@ -1,0 +1,3 @@
+/Users/jy/Desktop/MyResposity/Algorithm/2020-05-24(selectionSort)/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/jy/Desktop/MyResposity/Algorithm/2020-05-24(selectionSort)/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/jy/Desktop/MyResposity/Algorithm/2020-05-24(selectionSort)/cmake-build-debug/CMakeFiles/2020_05_24_selectionSort_.dir
