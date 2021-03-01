@@ -1,2 +1,0 @@
-# Algorithm
-Fun with Algorithm！
