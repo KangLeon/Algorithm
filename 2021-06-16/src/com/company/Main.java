@@ -70,6 +70,7 @@ public class Main {
     }
 
     //选择排序：选择排序的交换次数要远远少于冒泡排序，所以平均性能优于冒泡排序
+    //最好、最坏、平均时间复杂度：O(n^2),空间复杂度：O(1)，属于稳定排序
     static void selectionSort(Integer[] array){
         for (int end = array.length - 1;end>0;end--){
             int maxIndex = 0;
