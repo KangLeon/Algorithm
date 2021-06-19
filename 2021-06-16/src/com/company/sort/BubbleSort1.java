@@ -1,7 +1,7 @@
 package com.company.sort;
 
 //冒泡排序，不考虑提前有序的数组情况
-public class BubbleSort1 extends Sort {
+public class BubbleSort1<E extends Comparable<E>> extends Sort<E> {
     @Override
     protected void sort() {
         //一层循环，从后往前
