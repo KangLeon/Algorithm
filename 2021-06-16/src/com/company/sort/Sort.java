@@ -41,11 +41,11 @@ public abstract class Sort<E extends Comparable<E>> {
     }
 
     //交换
-    protected void swap(int i1,int i2){
+    protected void swap(E v1,E v2){
         swapCount++;
-        E tmp = array[i1];
-        array[i1]=array[i2];
-        array[i2]=tmp;
+        E tmp = v1;
+        v1 = v2;
+        v2 = tmp;
     }
 
     @Override
