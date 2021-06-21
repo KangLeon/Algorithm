@@ -6,7 +6,6 @@ public class MergeSort<E extends Comparable<E>> extends Sort<E> {
     @Override
     protected void sort() {
         leftArray = (E[]) new Comparable[array.length >> 1];
-
     }
 
     /*
