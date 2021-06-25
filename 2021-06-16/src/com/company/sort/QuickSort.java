@@ -26,12 +26,33 @@ public class QuickSort<E extends Comparable<E>> extends Sort<E>  {
     * */
     private int privotIndex(int begin,int end){
         //备份begin位置的元素
-        E v = array[begin];
+        E pivot = array[begin];
         //end指向最后一个元素
         end--;
 
         while (begin < end){
+            while (begin < end){
+                if (cmp(pivot,array[end]) < 0){//右边元素 > 轴点元素
+                    end--;
+                }else{//右边元素 <= 轴点元素
+                    array[begin++] = array[end];
+                    break;
+                }
+            }
 
+            while (begin < end){
+                if (cmp(pivot,array[begin]) > 0){//左边元素 < 轴点元素
+                    begin++;
+                }else{//左边元素 >= 轴点元素
+                    array[end--] = array[begin];
+                    break;
+                }
+            }
         }
+
+        //将轴点元素放入最终的位置
+        array[begin] = pivot;
+        //返回轴点元素的位置
+        return begin;
     }
 }
