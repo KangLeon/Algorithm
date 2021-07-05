@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-07-05 15:07:13
- * @LastEditTime: 2021-07-05 16:05:04
+ * @LastEditTime: 2021-07-05 17:53:18
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /2020-07-05/src/com/company/union/UnionFind_QU.java
@@ -10,9 +10,16 @@ package com.company.union;
 
 public class UnionFind_QU extends Unionfind {
 
+    private int[] sizes;
+
     public UnionFind_QU(int capacity) {
         super(capacity);
         //TODO Auto-generated constructor stub
+
+        sizes = new int[capacity];
+        for (int i = 0; i < sizes.length; i++) {
+            sizes[i] = 1;
+        }
     }
 
     @Override
@@ -24,6 +31,11 @@ public class UnionFind_QU extends Unionfind {
         return v;
     }
 
+    /**
+     * @description: 将v1的根节点嫁接到v2的根节点
+     * @param {*}
+     * @return {*}
+     */    
     @Override
     public void union(int v1, int v2) {
         // TODO Auto-generated method stub
