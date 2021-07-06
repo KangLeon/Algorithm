@@ -1,24 +1,25 @@
 /*
  * @Author: your name
- * @Date: 2021-07-05 17:37:30
- * @LastEditTime: 2021-07-06 11:19:04
+ * @Date: 2021-07-06 11:13:45
+ * @LastEditTime: 2021-07-06 11:29:39
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: /2020-07-05/src/com/company/union/UnionFind_QU_S.java
+ * @FilePath: /2020-07-05/src/com/company/union/UnionFind_QF_R.java
  */
 package com.company.union;
 
-public class UnionFind_QU_S extends Unionfind {
+public class UnionFind_QF_R extends Unionfind {
 
-    private int[] sizes;
+    private int[] rank;
 
-    public UnionFind_QU_S(int capacity) {
+    public UnionFind_QF_R(int capacity) {
         super(capacity);
         //TODO Auto-generated constructor stub
 
-        sizes = new int[capacity];
-        for (int i = 0; i < sizes.length; i++) {
-            sizes[i] = 1;
+        rank = new int[capacity];
+
+        for (int i = 0; i < rank.length; i++) {
+            rank[i] = 1;
         }
     }
 
@@ -36,14 +37,14 @@ public class UnionFind_QU_S extends Unionfind {
         int p1 = find(v1);
         int p2 = find(v2); 
         if(p1==p2)return;
-       
-        if(sizes[p1] < sizes[p2]){
+
+        if(rank[p1] < rank[p2]){
             parents[p1] = p2;
-            sizes[p2] += sizes[p1];
-        }else{
+        }else if(rank[p1] > rank[p2]){
             parents[p2] = p1;
-            sizes[p1] += sizes[p2];
+        }else{
+            parents[p1] = p2;
+            rank[p2]++;
         }
     }
-    
 }
