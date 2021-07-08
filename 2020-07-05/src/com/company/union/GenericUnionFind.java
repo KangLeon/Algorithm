@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-07-06 13:09:01
- * @LastEditTime: 2021-07-06 14:36:46
+ * @LastEditTime: 2021-07-08 11:30:55
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /2020-07-05/src/com/company/union/GenericUnionFind.java
@@ -35,7 +35,7 @@ public class GenericUnionFind<V> {
 
     public V find(V v){
         Node<V> node = findNode(v);
-        return node == null ? null : node.value;
+        return node == null ? null  : node.value;
     }
 
     public void union(V v1,V v2){

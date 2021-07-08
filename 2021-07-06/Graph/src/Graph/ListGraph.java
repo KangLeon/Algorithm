@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-07-06 17:51:53
- * @LastEditTime: 2021-07-06 18:51:41
+ * @LastEditTime: 2021-07-08 12:19:13
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /Graph/src/Graph/ListGraph.java
@@ -17,6 +17,7 @@ import java.util.Set;
 @SuppressWarnings("unchecked")
 public class ListGraph<V,E> implements Graph<V,E> {
     private Map<V,Vertex<V,E>> vertices = new HashMap<>();
+    private Set<Edge<V,E>> edges = new HashSet<>();
 
     private static class Vertex<V,E> {
         V value;
@@ -29,6 +30,12 @@ public class ListGraph<V,E> implements Graph<V,E> {
         public int hashCode() {
             // TODO Auto-generated method stub
             return value == null ? 0 : value.hashCode();
+        }
+        public Vertex(V value,Set<Edge<V,E>> inEdges,Set<Edge<V,E>> outEdges){
+            super();
+            this.value = value;
+            this.inEdges = inEdges;
+            this.outEdges = outEdges; 
         }
     }
 
@@ -101,22 +108,45 @@ public class ListGraph<V,E> implements Graph<V,E> {
          Edge<V,E> edge = new Edge<>(fromVertex,toVertex);
          edge.weight = weight;
 
-         fromVertex.outEdges.remove(edge);
-         toVertex.inEdges.remove(edge);
+         if(fromVertex.outEdges.remove(edge)){
+            toVertex.inEdges.remove(edge);
+            edges.remove(edge);
+         }
 
          fromVertex.outEdges.add(edge);
          toVertex.inEdges.add(edge);
+         edges.add(edge);
     }
 
+    /**
+     * @description: 删除顶点
+     * @param {*}
+     * @return {*}
+     */    
     @Override
     public void removeVertex(V v) {
         // TODO Auto-generated method stub
         
     }
 
+    /**
+     * @description: 删除边
+     * @param {*}
+     * @return {*}
+     */    
     @Override
     public void removeEdge(V from, V to) {
         // TODO Auto-generated method stub
-        
+        Vertex<V,E> fromVertex = vertices.get(from);
+        if(fromVertex == null) return;
+
+        Vertex<V,E> toVertex = vertices.get(to);
+        if(toVertex == null) return;
+
+        Edge<V,E> edge = new Edge<>(fromVertex,toVertex);
+        if(fromVertex.outEdges.remove(edge)){
+            toVertex.inEdges.remove(edge);
+            edges.remove(edge);
+        }
     }
 }
