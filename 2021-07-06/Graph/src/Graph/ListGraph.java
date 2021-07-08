@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-07-06 17:51:53
- * @LastEditTime: 2021-07-08 17:18:34
+ * @LastEditTime: 2021-07-08 18:05:24
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /Graph/src/Graph/ListGraph.java
@@ -39,7 +39,7 @@ public class ListGraph<V,E> implements Graph<V,E> {
             this.value = value;
             this.inEdges = inEdges;
             this.outEdges = outEdges; 
-        }
+        } 
     }
 
     private static class Edge<V,E>{
@@ -170,6 +170,11 @@ public class ListGraph<V,E> implements Graph<V,E> {
         }
     }
 
+    /**
+     * @description: 广度优先搜索
+     * @param {*}
+     * @return {*}
+     */    
     @Override
     public void bfs(V begin) {
         // TODO Auto-generated method stub
@@ -191,5 +196,16 @@ public class ListGraph<V,E> implements Graph<V,E> {
                 visitedVertices.add(edge.to);
             }
         }
+    }
+
+    /**
+     * @description: 深度优先搜索
+     * @param {*}
+     * @return {*}
+     */    
+    @Override
+    public void dfs(V begin) {
+        // TODO Auto-generated method stub
+        
     }
 }
