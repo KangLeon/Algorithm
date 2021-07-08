@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-07-06 17:51:53
- * @LastEditTime: 2021-07-08 12:19:13
+ * @LastEditTime: 2021-07-08 14:58:11
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /Graph/src/Graph/ListGraph.java
@@ -10,6 +10,7 @@ package Graph;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -126,7 +127,24 @@ public class ListGraph<V,E> implements Graph<V,E> {
     @Override
     public void removeVertex(V v) {
         // TODO Auto-generated method stub
-        
+        Vertex<V,E> vertex = vertices.remove(v);
+        if(vertex == null) return;
+
+        for(Iterator<Edge<V,E>> iterator = vertex.outEdges.iterator();iterator.hasNext();){
+            Edge<V,E> edge = iterator.next();
+            edge.to.inEdges.remove(edge);
+            //将当前遍历到的元素edge从集合vertex.outEdges中删掉
+            iterator.remove();
+            edges.remove(edge);
+        }
+
+        for(Iterator<Edge<V,E>> iterator = vertex.inEdges.iterator();iterator.hasNext();){
+            Edge<V,E> edge = iterator.next();
+            edge.to.inEdges.remove(edge);
+            //将当前遍历到的元素edge从集合vertex.outEdges中删掉
+            iterator.remove();
+            edges.remove(edge);
+        }
     }
 
     /**
