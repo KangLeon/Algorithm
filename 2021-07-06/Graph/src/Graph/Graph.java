@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-07-06 17:00:49
- * @LastEditTime: 2021-07-09 16:47:51
+ * @LastEditTime: 2021-07-09 18:26:21
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /Graph/src/Graph/Graph.java
@@ -29,5 +29,16 @@ public interface Graph<V,E> {
  
     interface VertexVisitor<V> {
         boolean visit(V v);
+    }
+
+    class EdgeInfo<V,E> {
+        V from;
+        V to;
+        E weight;
+        public EdgeInfo(V from,V to,E weight){
+            this.from = from;
+            this.to = to;
+            this.weight = weight;
+        }
     }
 }

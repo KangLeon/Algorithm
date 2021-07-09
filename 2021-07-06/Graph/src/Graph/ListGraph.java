@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-07-06 17:51:53
- * @LastEditTime: 2021-07-09 17:16:14
+ * @LastEditTime: 2021-07-09 18:01:28
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /Graph/src/Graph/ListGraph.java
@@ -268,7 +268,7 @@ public class ListGraph<V,E> implements Graph<V,E> {
      */    
     @Override
     public List<V> topologicalSort() {
-        List<V> list = new ArrayList<>();
+        List<V> list = new ArrayList<>(); 
         Queue<Vertex<V,E>> queue = new LinkedList<>();
         Map<Vertex<V,E>,Integer> ins = new HashMap<>(); 
         //初始化（将度为0的节点都放入队列）
