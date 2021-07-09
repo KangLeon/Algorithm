@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-07-06 17:51:53
- * @LastEditTime: 2021-07-08 18:31:40
+ * @LastEditTime: 2021-07-09 15:00:48
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /Graph/src/Graph/ListGraph.java
@@ -16,6 +16,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Queue;
 import java.util.Set;
+import java.util.Stack;
 
 @SuppressWarnings("unchecked")
 public class ListGraph<V,E> implements Graph<V,E> {
@@ -199,7 +200,7 @@ public class ListGraph<V,E> implements Graph<V,E> {
     }
 
     /**
-     * @description: 深度优先搜索
+     * @description: 非递归版的深度优先搜索
      * @param {*}
      * @return {*}
      */    
@@ -208,17 +209,52 @@ public class ListGraph<V,E> implements Graph<V,E> {
         // TODO Auto-generated method stub
         Vertex<V,E> beginVertex = vertices.get(begin);
         if(beginVertex == null) return;
-        
-        dfs(beginVertex,new HashSet<>());
-    }
 
-    private void dfs(Vertex<V,E> vertex,Set<Vertex<V,E>> visitedVertices){
-        System.out.println(vertex.value);
-        visitedVertices.add(vertex);
+        Set<Vertex<V,E>> visitedVertices = new HashSet<>();
+        Stack<Vertex<V,E>> stack = new Stack<>();
 
-        for(Edge<V,E> edge : vertex.outEdges) {
-            if(visitedVertices.contains(edge.to)) continue;
-            dfs(edge.to,visitedVertices);
+        //先访问起点
+        stack.push(beginVertex);
+        visitedVertices.add(beginVertex);
+        System.out.println(beginVertex.value);
+
+        while(!stack.isEmpty()){
+            Vertex<V,E> vertex = stack.pop();
+
+            for(Edge<V,E> edge : vertex.outEdges){
+                if(visitedVertices.contains(edge.to)) continue;
+
+                stack.push(edge.from);
+                stack.push(edge.to);
+                visitedVertices.add(edge.to);
+                System.out.println(edge.to.value);
+
+                break;
+            }
         }
     }
+
+    // /**
+    //  * @description: 递归版的深度优先搜索
+    //  * @param {*}
+    //  * @return {*}
+    //  */    
+    // @Override
+    // public void dfs(V begin) {
+    //     // TODO Auto-generated method stub
+    //     Vertex<V,E> beginVertex = vertices.get(begin);
+    //     if(beginVertex == null) return;
+        
+    //     dfs(beginVertex,new HashSet<>());
+    // }
+
+    // private void dfs(Vertex<V,E> vertex,Set<Vertex<V,E>> visitedVertices){
+    //     System.out.println(vertex.value);
+    //     visitedVertices.add(vertex);
+
+    //     for(Edge<V,E> edge : vertex.outEdges) {
+    //         if(visitedVertices.contains(edge.to)) continue;
+    //         dfs(edge.to,visitedVertices);
+    //     }
+    // }
 }
