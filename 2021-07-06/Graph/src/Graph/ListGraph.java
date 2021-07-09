@@ -1,17 +1,19 @@
 /*
  * @Author: your name
  * @Date: 2021-07-06 17:51:53
- * @LastEditTime: 2021-07-09 15:00:48
+ * @LastEditTime: 2021-07-09 17:16:14
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /Graph/src/Graph/ListGraph.java
  */
 package Graph;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Queue;
@@ -177,7 +179,7 @@ public class ListGraph<V,E> implements Graph<V,E> {
      * @return {*}
      */    
     @Override
-    public void bfs(V begin) {
+    public void bfs(V begin,VertexVisitor<V> visitor) {
         // TODO Auto-generated method stub
         Vertex<V,E> beginVertex = vertices.get(begin);
         if(beginVertex == null) return;
@@ -189,7 +191,7 @@ public class ListGraph<V,E> implements Graph<V,E> {
 
         while(!queue.isEmpty()){
             Vertex<V,E> vertex = queue.poll();
-            System.out.println(vertex.value);
+            if(visitor.visit(vertex.value)) return;
 
             for(Edge<V,E> edge : vertex.outEdges){
                 if(visitedVertices.contains(edge.to)) continue;
@@ -205,8 +207,9 @@ public class ListGraph<V,E> implements Graph<V,E> {
      * @return {*}
      */    
     @Override
-    public void dfs(V begin) {
+    public void dfs(V begin,VertexVisitor<V> visitor) {
         // TODO Auto-generated method stub
+        if(visitor == null) return;
         Vertex<V,E> beginVertex = vertices.get(begin);
         if(beginVertex == null) return;
 
@@ -216,7 +219,7 @@ public class ListGraph<V,E> implements Graph<V,E> {
         //先访问起点
         stack.push(beginVertex);
         visitedVertices.add(beginVertex);
-        System.out.println(beginVertex.value);
+        if(visitor.visit(begin)) return;
 
         while(!stack.isEmpty()){
             Vertex<V,E> vertex = stack.pop();
@@ -227,7 +230,7 @@ public class ListGraph<V,E> implements Graph<V,E> {
                 stack.push(edge.from);
                 stack.push(edge.to);
                 visitedVertices.add(edge.to);
-                System.out.println(edge.to.value);
+                if(visitor.visit(edge.to.value)) return;
 
                 break;
             }
@@ -257,4 +260,42 @@ public class ListGraph<V,E> implements Graph<V,E> {
     //         dfs(edge.to,visitedVertices);
     //     }
     // }
+
+    /**
+     * @description: 拓扑排序
+     * @param {*}
+     * @return {*}
+     */    
+    @Override
+    public List<V> topologicalSort() {
+        List<V> list = new ArrayList<>();
+        Queue<Vertex<V,E>> queue = new LinkedList<>();
+        Map<Vertex<V,E>,Integer> ins = new HashMap<>(); 
+        //初始化（将度为0的节点都放入队列）
+        vertices.forEach((V v,Vertex<V,E> vertex)-> {
+            int in  = vertex.inEdges.size();
+            if(in == 0){
+                queue.offer(vertex);
+            }else{
+                ins.put(vertex, in);
+            }
+        });
+
+        while(!queue.isEmpty()){
+            Vertex<V,E> vertex = queue.poll();
+            //放入返回结果中
+            list.add(vertex.value);
+
+            for(Edge<V,E> edge : vertex.outEdges){
+                int toIn = ins.get(edge.to)-1;
+                if(toIn == 0){
+                    queue.offer(edge.to);
+                }else{
+                    ins.put(edge.to, toIn);
+                }
+            }
+        }
+
+        return list;
+    }
 }

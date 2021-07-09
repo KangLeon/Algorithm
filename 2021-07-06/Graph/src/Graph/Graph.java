@@ -1,12 +1,14 @@
 /*
  * @Author: your name
  * @Date: 2021-07-06 17:00:49
- * @LastEditTime: 2021-07-06 17:43:21
+ * @LastEditTime: 2021-07-09 16:47:51
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /Graph/src/Graph/Graph.java
  */
 package Graph;
+
+import java.util.List;
 
 public interface Graph<V,E> {
     int edgeSize();
@@ -19,6 +21,13 @@ public interface Graph<V,E> {
     void removeVertex(V v);
     void removeEdge(V from,V to);
 
-    void bfs(V begin);
-    void dfs(V begin);
+    void bfs(V begin,VertexVisitor<V> visitor);
+    void dfs(V begin,VertexVisitor<V> visitor);
+
+    //条件是必须是有向无环图
+    List<V> topologicalSort();
+ 
+    interface VertexVisitor<V> {
+        boolean visit(V v);
+    }
 }
