@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-07-06 17:51:53
- * @LastEditTime: 2021-07-10 14:53:03
+ * @LastEditTime: 2021-07-10 16:27:41
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /Graph/src/Graph/ListGraph.java
@@ -318,9 +318,14 @@ public class ListGraph<V,E> extends Graph<V,E> {
         return prim();
     }
 
+    /**
+     * @description: prim算法求最小生成树 
+     * @param {*}
+     * @return {*}
+     */    
     private Set<EdgeInfo<V,E>> prim() {
         Iterator<Vertex<V,E>> it = vertices.values().iterator();
-        if(!it.hasNext()) return null;
+        if(!it.hasNext()) return null;  
 
         Set<EdgeInfo<V,E>> edgeInfos = new HashSet<>();
         Set<Vertex<V,E>> addedVertices = new HashSet<>();
@@ -342,7 +347,33 @@ public class ListGraph<V,E> extends Graph<V,E> {
         return edgeInfos;
     }
 
+    /**
+     * @description: kruskal算法求最小生成树
+     * @param {*}
+     * @return {*}
+     */    
     private Set<EdgeInfo<V,E>> kruskal() {
-        return null;
+
+        int edgeSize = vertices.size() - 1;
+        if(edgeSize == -1) return null;
+
+        Set<EdgeInfo<V,E>> edgeInfos = new HashSet<>();
+
+        MinHeap<Edge<V,E>> heap = new MinHeap<>(edges,edgeComparator);
+        UnionFind<Vertex<V,E>> uf = new UnionFind<>();
+
+        vertices.forEach((V v,Vertex<V,E> vertex) -> {
+            uf.makeSet(vertex);
+        });
+
+        while(!heap.isEmpty()&&edgeInfos.size() < edgeSize){
+            Edge<V,E> edge = heap.remove();
+            if(uf.isSame(edge.from, edge.to)) continue;
+
+            edgeInfos.add(edge.info());
+            uf.union(edge.from, edge.to);
+        }
+
+        return edgeInfos;
     }
 }
