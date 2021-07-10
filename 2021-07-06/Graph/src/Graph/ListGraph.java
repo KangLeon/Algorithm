@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-07-06 17:51:53
- * @LastEditTime: 2021-07-10 16:27:41
+ * @LastEditTime: 2021-07-10 18:14:04
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /Graph/src/Graph/ListGraph.java
@@ -375,5 +375,16 @@ public class ListGraph<V,E> extends Graph<V,E> {
         }
 
         return edgeInfos;
+    }
+
+    /**
+     * @description: 求最短路径值：Dijkstra
+     * @param {*}
+     * @return {*}
+     */    
+    @Override
+    public Map<V, E> shortestPath(V begin) {
+        // TODO Auto-generated method stub
+        return null;
     }
 }

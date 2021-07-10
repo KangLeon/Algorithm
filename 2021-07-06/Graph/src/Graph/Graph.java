@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-07-06 17:00:49
- * @LastEditTime: 2021-07-10 11:31:48
+ * @LastEditTime: 2021-07-10 18:12:48
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /Graph/src/Graph/Graph.java
@@ -9,6 +9,7 @@
 package Graph;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public abstract class Graph<V,E> {
@@ -31,6 +32,9 @@ public abstract class Graph<V,E> {
 
     //条件是必须是有向无环图
     public abstract List<V> topologicalSort();
+
+    //最短路径值
+    public abstract Map<V,E> shortestPath(V begin);
 
     public abstract Set<EdgeInfo<V,E>> mst();//最小生成树
  
