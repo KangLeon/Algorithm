@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-07-06 17:51:53
- * @LastEditTime: 2021-07-09 18:01:28
+ * @LastEditTime: 2021-07-10 14:53:03
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /Graph/src/Graph/ListGraph.java
@@ -9,6 +9,7 @@
 package Graph;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -21,9 +22,17 @@ import java.util.Set;
 import java.util.Stack;
 
 @SuppressWarnings("unchecked")
-public class ListGraph<V,E> implements Graph<V,E> {
+public class ListGraph<V,E> extends Graph<V,E> {
+    public ListGraph(WeightManager<E> weightManager) {
+        super(weightManager);
+        //TODO Auto-generated constructor stub
+    }
+
     private Map<V,Vertex<V,E>> vertices = new HashMap<>();
     private Set<Edge<V,E>> edges = new HashSet<>();
+    private Comparator<Edge<V,E>> edgeComparator = (Edge<V,E> e1,Edge<V,E> e2) -> {
+        return weightManager.compare(e1.weight, e2.weight);
+    };
 
     private static class Vertex<V,E> {
         V value;
@@ -54,6 +63,10 @@ public class ListGraph<V,E> implements Graph<V,E> {
             this.from = from;
             this.to = to;
         }
+
+        EdgeInfo<V, E> info() {
+			return new EdgeInfo<>(from.value, to.value, weight);
+		}
 
         @Override
         public boolean equals(Object obj) {
@@ -297,5 +310,39 @@ public class ListGraph<V,E> implements Graph<V,E> {
         }
 
         return list;
+    }
+
+    @Override
+    public Set<EdgeInfo<V, E>> mst() {
+        // TODO Auto-generated method stub
+        return prim();
+    }
+
+    private Set<EdgeInfo<V,E>> prim() {
+        Iterator<Vertex<V,E>> it = vertices.values().iterator();
+        if(!it.hasNext()) return null;
+
+        Set<EdgeInfo<V,E>> edgeInfos = new HashSet<>();
+        Set<Vertex<V,E>> addedVertices = new HashSet<>();
+
+        Vertex<V,E> vertex = it.next();
+        addedVertices.add(vertex);
+        MinHeap<Edge<V,E>> heap = new MinHeap<>(vertex.outEdges,edgeComparator);
+
+        int edgeSize = vertices.size() - 1;
+        while(!heap.isEmpty()&&edgeInfos.size() < edgeSize){
+            Edge<V,E> edge = heap.remove();
+            if(addedVertices.contains(edge.to)) continue;
+
+            edgeInfos.add(edge.info());
+            addedVertices.add(edge.to);
+            heap.addAll(edge.to.outEdges);
+        }        
+
+        return edgeInfos;
+    }
+
+    private Set<EdgeInfo<V,E>> kruskal() {
+        return null;
     }
 }
