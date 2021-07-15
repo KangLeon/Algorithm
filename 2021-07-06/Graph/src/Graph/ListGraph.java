@@ -1,13 +1,14 @@
 /*
  * @Author: your name
  * @Date: 2021-07-06 17:51:53
- * @LastEditTime: 2021-07-10 18:14:04
+ * @LastEditTime: 2021-07-14 13:43:41
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /Graph/src/Graph/ListGraph.java
  */
 package Graph;
 
+import java.security.KeyStore.Entry;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -374,7 +375,7 @@ public class ListGraph<V,E> extends Graph<V,E> {
             uf.union(edge.from, edge.to);
         }
 
-        return edgeInfos;
+        return edgeInfos;  
     }
 
     /**
@@ -386,5 +387,23 @@ public class ListGraph<V,E> extends Graph<V,E> {
     public Map<V, E> shortestPath(V begin) {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    /**
+     * @description: 从paths中挑一个最短的路径出来
+     * @param {Map<Vertex<V,E>,E>} paths
+     * @return {*}
+     */    
+    private Vertex<V,E> getMinPath(Map<Vertex<V,E>,E> paths){
+        Vertex<V,E> minVertex = null;
+        E minWeight = null;
+        for(java.util.Map.Entry<Vertex<V, E>, E> entry : paths.entrySet()){
+            E weight = entry.getValue();
+            if(minWeight == null || weightManager.compare(weight, minWeight) < 0){
+                minVertex = entry.getKey();
+                minWeight = weight;
+            }
+        }
+        return minVertex;
     }
 }
