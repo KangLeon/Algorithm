@@ -397,7 +397,7 @@ public class ListGraph<V,E> extends Graph<V,E> {
     private Vertex<V,E> getMinPath(Map<Vertex<V,E>,E> paths){
         Vertex<V,E> minVertex = null;
         E minWeight = null;
-        for(java.util.Map.Entry<Vertex<V, E>, E> entry : paths.entrySet()){
+        for(Entry<Vertex<V, E>, E> entry : paths.entrySet()){
             E weight = entry.getValue();
             if(minWeight == null || weightManager.compare(weight, minWeight) < 0){
                 minVertex = entry.getKey();
